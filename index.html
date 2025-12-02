@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio Desarrollo de Aplicaciones Web</title>
+
+<style>
+   
+.tech-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1s forwards;
+    animation-delay: 0.6s;
+}
+
+.tech {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.tech img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+    transition: transform 0.3s;
+}
+
+.tech:hover {
+    transform: translate(-8px);
+}
+
+.tech:hover img {
+    transform: scale(1.15);
+}
+
+    body {
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        scroll-behavior: smooth;
+        background-color: #fdf6e3;
+        color: #333;
+        
+    }
+
+    h1, h2, h3 {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0 0 10px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s forwards;
+    }
+
+    p, li {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s forwards;
+        animation-delay: 0.3s;
+    }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    section {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 20px;
+        box-sizing: border-box;
+        text-align: center;
+        transition: background-color 0.5s ease;
+    }
+
+    .beige {
+        background-color: #F5F5DC;
+    }
+
+    .azul {
+        background-color: #193b5e;
+        color: #fff;
+    }
+
+    /* Listas */
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
+
+    ul li {
+        margin: 5px 0;
+    }
+
+    .projects {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .project-card {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        width: 260px;
+        text-align: left;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    }
+
+    
+    .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 12px 20px;
+        background: linear-gradient(45deg,#ff7f50,#ff4500);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Social links */
+    .social-links {
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .social-links img {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        transition: transform 0.3s, filter 0.3s;
+        filter: brightness(0.9);
+    }
+
+    .social-links img:hover {
+        transform: scale(1.2);
+        filter: brightness(1);
+    }
+
+    /* Animaciones secuenciales */
+    section:nth-child(1) h1, section:nth-child(1) h2 { animation-delay: 0.2s; }
+    section:nth-child(2) h2 { animation-delay: 0.3s; }
+    section:nth-child(2) p, section:nth-child(2) ul li { animation-delay: 0.5s; }
+    section:nth-child(3) h2 { animation-delay: 0.3s; }
+    section:nth-child(4) h2 { animation-delay: 0.3s; }
+    
+    /* Responsive */
+    @media(max-width:768px){
+        .projects {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .project-card {
+            width: 90%;
+        }
+    }
+
+</style>
+</head>
+<body>
+    
+    <!-- Sección 1: Portafolio -->
+    <section class="beige">
+        <h1>Portafolio</h1>
+        <h2>Desarrollo de Aplicaciones Web</h2>
+        
+    </section>
+
+    <!-- Sección 2: Presentación -->
+    <section class="azul">
+    <h2>Hola, soy Iman Kebour Dahmoun</h2>
+    <p>Estudio Desarrollo de Aplicaciones Web y manejo tecnologías como:</p>
+
+    <div class="tech-container">
+        <div class="tech">
+            <img src="html.png" alt="HTML">
+            <span>HTML</span>
+        </div>
+        <div class="tech">
+            <img src="css.png" alt="CSS">
+            <span>CSS</span>
+        </div>
+        <div class="tech">
+            <img src="JS.png" alt="JavaScript">
+            <span>JavaScript</span>
+        </div>
+        <div class="tech">
+            <img src="python.png" alt="Python">
+            <span>Python</span>
+        </div>
+        <div class="tech">
+            <img src="php.png" alt="PHP">
+            <span>PHP</span>
+        </div>
+        <div class="tech">
+    <img src="mysql.png" alt="MySQL Logo">
+    <span>MySQL</span>
+</div>
+
+    </div>
+</section>
+
+
+    
+    <section class="beige">
+        <h2>Proyectos</h2>
+        <div class="projects">
+            <div class="project-card">
+                <h3>Proyecto 1</h3>
+                <p>Descripción corta del proyecto. Explica qué hace y qué tecnologías usaste.</p>
+                <a href="#" class="btn">Ver proyecto</a>
+            </div>
+            <div class="project-card">
+                <h3>Proyecto 2</h3>
+                <p>Descripción corta del proyecto.</p>
+                <a href="#" class="btn">Ver proyecto</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="azul">
+        <h2>Contacto</h2>
+        <p>Escríbeme a través de:</p>
+        <a href="mailto:kebouriman6@gmail.com" class="btn">Enviar email</a>
+
+        <div class="social-links">
+            <a href="https://github.com/kebouriman6-glitch" target="_blank">
+                <img src="github.png" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/imankebourdahmoun/" target="_blank">
+                <img src="linkedin.png" alt="LinkedIn">
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>
