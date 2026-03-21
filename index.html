@@ -391,7 +391,9 @@ sendBtn.addEventListener("click", async () => {
   try {
     const response = await fetch(backendURL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         messages: [{ role: "user", content: message }]
       })
@@ -402,8 +404,8 @@ sendBtn.addEventListener("click", async () => {
     chatLog.innerHTML += `<div class="bot"><strong>Chatbot:</strong> ${data.response}</div>`;
     chatLog.scrollTop = chatLog.scrollHeight;
 
-  } catch (err) {
-    chatLog.innerHTML += `<div class="error">Error: ${err.message}</div>`;
+  } catch (error) {
+    chatLog.innerHTML += `<div class="error">Error: ${error}</div>`;
   }
 });
 </script>
