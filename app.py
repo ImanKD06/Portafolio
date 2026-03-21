@@ -13,6 +13,10 @@ CORS(app, resources={r"/chat": {"origins": "https://imankd06.github.io"}})
 OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 
+@app.route("/")
+def home():
+    return "Servidor Flask funcionando"
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json(silent=True)
