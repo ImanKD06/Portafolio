@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import os
@@ -7,17 +7,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/chat": {"origins": os.getenv("ALLOWED_ORIGIN")}})
+# Permitir que tu frontend en GitHub Pages haga fetch
+CORS(app, resources={r"/chat": {"origins": "https://tu-usuario.github.io"}})
 
 OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 
-# Ruta para servir tu portafolio
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-# Ruta del chatbot
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json(silent=True)
