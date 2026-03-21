@@ -8,7 +8,7 @@ load_dotenv()
 
 app = Flask(__name__)
 # Permitir que tu frontend en GitHub Pages haga fetch
-CORS(app, resources={r"/chat": {"origins": "https://tu-usuario.github.io"}})
+CORS(app, resources={r"/chat": {"origins": "https://imankd06.github.io"}})
 
 OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
