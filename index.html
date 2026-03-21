@@ -193,6 +193,67 @@ h1, h2, h3 {
 .social-links img:hover {
     transform: scale(1.2);
 }
+
+/* CHATBOT */
+#chat-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto;
+  border: 2px solid #193b5e;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  padding: 15px;
+}
+
+#chat-log {
+  height: 250px;
+  overflow-y: auto;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+#user-input {
+  width: calc(100% - 80px);
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#send-btn {
+  width: 60px;
+  padding: 8px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #193b5e;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#send-btn:hover {
+  background-color: #ff7f50;
+}
+
+#chat-log div {
+  margin-bottom: 6px;
+}
+
+#chat-log strong {
+  color: #193b5e;
+}
+
+#chat-log .bot {
+  color: #007bff;
+}
+
+#chat-log .error {
+  color: red;
+}
 </style>
 </head>
 
@@ -305,6 +366,39 @@ h1, h2, h3 {
             <img src="img/linkedin (1).png" alt="LinkedIn">
         </a>
     </div>
+
+<div id="chat-container">
+  <div id="chat-log"></div>
+  <input type="text" id="user-input" placeholder="Escribe un mensaje..." />
+  <button id="send-btn">Enviar</button>
+</div>
+
+<script>
+const backendURL = "http://TU_SERVIDOR_O_LOCAL:5000/chat"; // Cambia por tu IP pública o localhost
+
+sendBtn.addEventListener("click", async () => {
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  chatLog.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+  userInput.value = "";
+
+  try {
+    const response = await fetch(backendURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: [{ role: "user", content: message }] })
+    });
+
+    const data = await response.json();
+    chatLog.innerHTML += `<div><strong>Chatbot:</strong> ${data.response}</div>`;
+    chatLog.scrollTop = chatLog.scrollHeight;
+
+  } catch (err) {
+    chatLog.innerHTML += `<div style="color:red;">Error: ${err.message}</div>`;
+  }
+});
+</script>
 </section>
 
 </body>
