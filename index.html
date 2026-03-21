@@ -374,7 +374,7 @@ h1, h2, h3 {
 </div>
 
 <script>
-constconst backendURL = "http://TU_SERVIDOR_O_LOCAL:5000/chat"; // Cambia por tu IP pública o localhost
+constconst backendURL = "https://portafolio-3-mfy6.onrender.com"; // Cambia por tu IP pública o localhost
 
 sendBtn.addEventListener("click", async () => {
   const message = userInput.value.trim();
@@ -384,7 +384,7 @@ sendBtn.addEventListener("click", async () => {
   userInput.value = "";
 
   try {
-    const response = await fetch(backendURL, {
+    const response = await fetch("https://portafolio-3-mfy6.onrender.com" {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: [{ role: "user", content: message }] })
