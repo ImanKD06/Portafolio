@@ -345,113 +345,6 @@ section {
     .stack-list dl{ grid-template-columns: 120px 1fr; }
 }
 
-/* CHATBOT */
-#chat-container {
-  width: 100%;
-  max-width: 420px;
-  margin: 34px auto 0;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: #ffffff;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-#chat-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--line);
-  background: #ffffff;
-}
-#chat-header .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #22c55e;
-}
-#chat-header span {
-  color: var(--ink);
-  font-family: 'Archivo', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.02em;
-}
-
-#chat-log {
-  height: 320px;
-  overflow-y: auto;
-  padding: 18px 20px;
-  background: #fafafa;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.message {
-  padding: 10px 14px;
-  border-radius: 14px;
-  max-width: 75%;
-  font-size: 14px;
-  line-height: 1.4;
-  text-align: left;
-}
-
-.user {
-  background: var(--ink);
-  color: #ffffff;
-  align-self: flex-end;
-  font-weight: 500;
-  border-bottom-right-radius: 4px;
-}
-
-.bot {
-  background: #ffffff;
-  color: var(--ink);
-  align-self: flex-start;
-  border: 1px solid var(--line);
-  border-bottom-left-radius: 4px;
-}
-
-#chat-input-area {
-  display: flex;
-  border-top: 1px solid var(--line);
-  padding: 14px 16px;
-  background: #ffffff;
-}
-
-#user-input {
-  flex: 1;
-  min-width: 0;
-  padding: 11px 16px;
-  border-radius: 30px;
-  border: 1px solid var(--line);
-  background: #ffffff;
-  color: var(--ink);
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-}
-#user-input::placeholder{ color: var(--ink-soft); }
-
-#send-btn {
-  margin-left: 10px;
-  padding: 11px 22px;
-  border-radius: 30px;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: #ffffff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-#send-btn:hover {
-  background: #ffffff;
-  color: var(--ink);
-}
-
 @media (max-width: 640px){
     #inicio h1{ font-size: 48px; }
     #presentacion{ padding: 80px 24px; }
@@ -472,7 +365,6 @@ section {
         <li><a href="#presentacion">Sobre mí</a></li>
         <li><a href="#tecnologias">Tecnologías</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#asistente">Asistente</a></li>
         <li><a href="#contacto">Contacto</a></li>
         <li><a href="https://imankd06.github.io/Curriculum/" target="_blank" style="border:1px solid #0a0a0a; padding:6px 16px; border-radius:20px;">Ver CV</a></li>
     </ul>
@@ -604,25 +496,6 @@ section {
     </div>
 </section>
 
-<section id="asistente" class="beige">
-    <div class="content">
-        <h2>Asistente virtual</h2>
-        <p>Escríbeme por aquí si tienes cualquier duda sobre mi perfil o mis proyectos.</p>
-
-        <div id="chat-container">
-          <div id="chat-header">
-            <div class="dot"></div>
-            <span>Asistente</span>
-          </div>
-          <div id="chat-log"></div>
-          <div id="chat-input-area">
-            <input type="text" id="user-input" placeholder="Escribe un mensaje..." />
-            <button id="send-btn">Enviar</button>
-          </div>
-        </div>
-    </div>
-</section>
-
 <section id="contacto" class="beige">
     <h2>Contacto</h2>
     <h3>Puedes escribirme a:</h3>
@@ -637,7 +510,6 @@ section {
         </a>
     </div>
 </section>
-
 
 </body>
 </html>
