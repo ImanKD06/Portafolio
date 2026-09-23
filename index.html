@@ -17,11 +17,11 @@
 }
 
 *{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
 
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    scroll-behavior: smooth;
     background-color: var(--bg);
     color: var(--ink);
     font-weight: 400;
@@ -50,9 +50,10 @@ nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 42px;
+    flex-wrap: wrap;
+    gap: 14px 42px;
     margin: 0;
-    padding: 0;
+    padding: 0 12px;
 }
 nav ul li a {
     color: var(--ink);
@@ -93,12 +94,6 @@ section {
     background-size: 26px 26px;
     color: var(--ink);
 }
-.azul {
-    background: #0a0a0a;
-    color: #f5f5f5;
-}
-.azul p, .azul h2, .azul h3 { color: #cfcfcf; }
-.azul h2, .azul h3 { color: #ffffff; }
 
 .content {
     max-width: 920px;
@@ -121,26 +116,63 @@ section {
     font-weight: 800;
     color: var(--ink);
 }
-#inicio h2 {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 19px;
-    color: var(--ink-soft);
-    margin-top: 18px;
-}
 
-/* PRESENTACION */
-#presentacion .content{
-    display:flex; align-items:center; justify-content:space-between; gap:50px; flex-wrap:wrap;
+/* PRESENTACIÓN (FOTO + QUIÉN SOY) */
+#presentacion {
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 100px 24px;
 }
-#presentacion .hero-text{ text-align:left; max-width:460px; }
-#presentacion h1{ font-size: 58px; font-weight: 800; color:#fff; }
-#presentacion h2{ font-family:'Inter',sans-serif; font-size:22px; font-weight:500; margin-top:14px; color:#fff; }
-#presentacion p{ font-size:17px; }
-#presentacion img{
-    width:260px;
+#presentacion .content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+    flex-wrap: wrap;
+}
+#presentacion .foto{
+    width: 300px;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
     border-radius: 4px;
-    border: 1px solid #2a2a2a;
+    border: 1px solid var(--line);
+    box-shadow: 14px 14px 0 var(--ink);
+}
+#presentacion .quien-soy{
+    text-align: left;
+    max-width: 480px;
+}
+#presentacion h2{
+    font-size: 46px;
+    line-height: 1.05;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+#presentacion .rol{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 22px 0;
+}
+#presentacion p{
+    font-size: 17px;
+    margin: 0 0 16px 0;
+}
+#presentacion .acciones{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+}
+.btn-outline{
+    background: transparent;
+    color: var(--ink);
+}
+.btn-outline:hover{
+    background: var(--ink);
+    color: #fff;
 }
 
 /* TARJETAS DE TECNOLOGÍA */
@@ -177,65 +209,6 @@ section {
     color: var(--ink);
 }
 
-/* TARJETAS DE PROYECTOS */
-.projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 34px;
-}
-
-.project-card {
-    background-color: #ffffff;
-    border: 1px solid #2b2b2b;
-    width: 330px;
-    overflow: hidden;
-    transition: 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 8px 8px 0 rgba(255,255,255,0.15);
-}
-
-.project-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid #2b2b2b;
-}
-
-.project-card .info {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    color: #111;
-}
-
-.project-card h3 {
-    margin: 0 0 12px 0;
-    font-size: 21px;
-    font-weight: 700;
-    color:#0a0a0a;
-}
-
-.project-card p {
-    font-size: 14.5px;
-    line-height: 1.6;
-    margin-bottom: 22px;
-    color:#555;
-}
-
-.project-card .btn {
-    align-self: flex-start;
-    margin-top: auto;
-}
-
 /* BOTONES */
 .btn {
     display: inline-block;
@@ -251,15 +224,6 @@ section {
 .btn:hover {
     background: #fff;
     color: #0a0a0a;
-}
-.azul .btn{
-    background:#fff;
-    color:#0a0a0a;
-    border-color:#fff;
-}
-.azul .btn:hover{
-    background:transparent;
-    color:#fff;
 }
 
 /* REDES */
@@ -277,11 +241,7 @@ section {
     transform: translateY(-3px);
 }
 
-/* PROYECTO TÉCNICO — COMMUNITY MANAGER */
-#community {
-    padding: 110px 24px;
-}
-#community .content { max-width: 980px; text-align: left; }
+/* PROYECTOS */
 .tech-detail-header {
     border-bottom: 1px solid var(--line);
     padding-bottom: 24px;
@@ -363,7 +323,7 @@ section {
 
 @media (max-width: 760px){
     .tech-detail-grid{ grid-template-columns: 1fr; }
-    .tech-detail-grid .divider{ display:none; height:1px; width:100%; }
+    .tech-detail-grid .divider{ display:none; }
     .stack-list dl{ grid-template-columns: 120px 1fr; }
 }
 
@@ -419,6 +379,7 @@ section {
   max-width: 75%;
   font-size: 14px;
   line-height: 1.4;
+  text-align: left;
 }
 
 .user {
@@ -446,6 +407,7 @@ section {
 
 #user-input {
   flex: 1;
+  min-width: 0;
   padding: 11px 16px;
   border-radius: 30px;
   border: 1px solid var(--line);
@@ -467,7 +429,6 @@ section {
   cursor: pointer;
   transition: 0.25s ease;
 }
-
 #send-btn:hover {
   background: #ffffff;
   color: var(--ink);
@@ -475,9 +436,12 @@ section {
 
 @media (max-width: 640px){
     #inicio h1{ font-size: 48px; }
-    #presentacion h1{ font-size: 42px; }
-    #presentacion .content{ flex-direction: column-reverse; text-align:center; }
-    #presentacion .hero-text{ text-align:center; }
+    #presentacion{ padding: 80px 24px; }
+    #presentacion .content{ gap: 50px; }
+    #presentacion .foto{ width: 240px; box-shadow: 10px 10px 0 var(--ink); }
+    #presentacion .quien-soy{ text-align: center; }
+    #presentacion h2{ font-size: 36px; }
+    #presentacion .acciones{ justify-content: center; }
 }
 </style>
 </head>
@@ -487,7 +451,7 @@ section {
 <nav>
     <ul>
         <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#presentacion">Presentación</a></li>
+        <li><a href="#presentacion">Sobre mí</a></li>
         <li><a href="#tecnologias">Tecnologías</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
         <li><a href="#asistente">Asistente</a></li>
@@ -502,14 +466,20 @@ section {
     </div>
 </section>
 
-<section id="presentacion" class="azul">
-   <div class="content">
-        <div class="hero-text">
-            <h1>Hola</h1>
-            <h2>Soy Iman Kebour Dahmoun</h2>
-            <p>Estudio Desarrollo de Aplicaciones Web.</p>
+<!-- PRESENTACIÓN: FOTO Y QUIÉN SOY -->
+<section id="presentacion">
+    <div class="content">
+        <img class="foto" src="img/iman.jpg" alt="Iman Kebour Dahmoun">
+        <div class="quien-soy">
+            <h2>Iman Kebour Dahmoun</h2>
+            <p class="rol">Desarrolladora de aplicaciones web</p>
+            <p>Estudio Desarrollo de Aplicaciones Web y me gusta construir aplicaciones completas, desde la interfaz hasta el servidor y la base de datos.</p>
+            <p>He trabajado con React, Python con FastAPI, PHP y MySQL, y he llevado proyectos a producción con AWS Lambda y Vercel.</p>
+            <div class="acciones">
+                <a href="#proyectos" class="btn">Ver proyectos</a>
+                <a href="#contacto" class="btn btn-outline">Contactar</a>
+            </div>
         </div>
-        <img src="img/computer-Photoroom.png" alt="Foto">
     </div>
 </section>
 
@@ -531,9 +501,7 @@ section {
         <div style="height:1px; background:var(--line); margin: 30px 0 50px;"></div>
 
         <!-- COMMUNITY MANAGER -->
-        
-      
-      <div id="community" class="tech-detail-header">
+        <div id="community" class="tech-detail-header">
             <div class="eyebrow">Proyecto</div>
             <h2>Community Manager</h2>
             <p>Plataforma full-stack para la gestión de comunidades de vecinos, con módulos de IA para clasificación de incidencias y generación de actas.</p>
@@ -645,6 +613,7 @@ section {
             <img src="img/linkedin (1).png" alt="LinkedIn">
         </a>
     </div>
+</section>
 
 <script>
 const backendURL = "https://portafolio-3-mfy6.onrender.com/chat";
@@ -653,38 +622,45 @@ const sendBtn = document.getElementById("send-btn");
 const userInput = document.getElementById("user-input");
 const chatLog = document.getElementById("chat-log");
 
-chatLog.innerHTML += `<div class="message bot">¡Hola! Soy el asistente de este portafolio. Pregúntame lo que quieras sobre Iman o sus proyectos.</div>`;
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = "message " + type;
+  div.textContent = text;
+  chatLog.appendChild(div);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
 
-sendBtn.addEventListener("click", async () => {
+addMessage("¡Hola! Soy el asistente de este portafolio. Pregúntame lo que quieras sobre Iman o sus proyectos.", "bot");
+
+async function sendMessage() {
   const message = userInput.value.trim();
   if (!message) return;
 
-  chatLog.innerHTML += `<div class="message user">${message}</div>`;
+  addMessage(message, "user");
   userInput.value = "";
 
   try {
     const response = await fetch(backendURL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: [{ role: "user", content: message }]
       })
     });
 
     const data = await response.json();
-
-    chatLog.innerHTML += `<div class="message bot">${data.response}</div>`;
-    chatLog.scrollTop = chatLog.scrollHeight;
+    addMessage(data.response, "bot");
 
   } catch (error) {
-    chatLog.innerHTML += `<div class="message bot">Error al conectar</div>`;
+    addMessage("Error al conectar", "bot");
   }
+}
+
+sendBtn.addEventListener("click", sendMessage);
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
 });
 </script>
-
-</section>
 
 </body>
 </html>
