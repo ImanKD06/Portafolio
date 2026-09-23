@@ -137,7 +137,6 @@ section {
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid var(--line);
-    box-shadow: 14px 14px 0 var(--ink);
 }
 #presentacion .quien-soy{
     text-align: left;
@@ -259,6 +258,25 @@ section {
 .tech-detail-header p{
     max-width: 620px;
     font-size: 16px;
+}
+.community-top{
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 44px;
+    align-items: center;
+}
+.arq-link{ display: block; }
+.arq-img{
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+}
+.community-info .eyebrow{ font-size: 14px; color: var(--ink-soft); margin-bottom: 6px; }
+@media (max-width: 760px){
+    .community-top{ grid-template-columns: 1fr; gap: 28px; }
 }
 .tech-detail-grid {
     display: grid;
@@ -438,7 +456,7 @@ section {
     #inicio h1{ font-size: 48px; }
     #presentacion{ padding: 80px 24px; }
     #presentacion .content{ gap: 50px; }
-    #presentacion .foto{ width: 240px; box-shadow: 10px 10px 0 var(--ink); }
+    #presentacion .foto{ width: 240px; }
     #presentacion .quien-soy{ text-align: center; }
     #presentacion h2{ font-size: 36px; }
     #presentacion .acciones{ justify-content: center; }
@@ -501,11 +519,16 @@ section {
         <div style="height:1px; background:var(--line); margin: 30px 0 50px;"></div>
 
         <!-- COMMUNITY MANAGER -->
-        <div id="community" class="tech-detail-header">
-            <div class="eyebrow">Proyecto</div>
-            <h2>Community Manager</h2>
-            <p>Plataforma full-stack para la gestión de comunidades de vecinos, con módulos de IA para clasificación de incidencias y generación de actas.</p>
-            <a href="https://comunnity-manager-fronted-iman25.vercel.app" class="btn" target="_blank" style="margin-top:18px;">Ver proyecto</a>
+        <div id="community" class="tech-detail-header community-top">
+            <a class="arq-link" href="img/designer.jpeg" target="_blank" title="Ver la imagen completa">
+                <img class="arq-img" src="img/designer.jpeg" alt="Diagrama de la arquitectura del proyecto Community Manager">
+            </a>
+            <div class="community-info">
+                <div class="eyebrow">Proyecto</div>
+                <h2>Community Manager</h2>
+                <p>Plataforma full-stack para la gestión de comunidades de vecinos, con módulos de IA para clasificación de incidencias y generación de actas.</p>
+                <a href="https://comunnity-manager-fronted-iman25.vercel.app" class="btn" target="_blank" style="margin-top:18px;">Ver proyecto</a>
+            </div>
         </div>
 
         <div class="tech-detail-grid">
