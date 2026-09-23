@@ -638,52 +638,6 @@ section {
     </div>
 </section>
 
-<script>
-const backendURL = "https://portafolio-3-mfy6.onrender.com/chat";
-
-const sendBtn = document.getElementById("send-btn");
-const userInput = document.getElementById("user-input");
-const chatLog = document.getElementById("chat-log");
-
-function addMessage(text, type) {
-  const div = document.createElement("div");
-  div.className = "message " + type;
-  div.textContent = text;
-  chatLog.appendChild(div);
-  chatLog.scrollTop = chatLog.scrollHeight;
-}
-
-addMessage("¡Hola! Soy el asistente de este portafolio. Pregúntame lo que quieras sobre Iman o sus proyectos.", "bot");
-
-async function sendMessage() {
-  const message = userInput.value.trim();
-  if (!message) return;
-
-  addMessage(message, "user");
-  userInput.value = "";
-
-  try {
-    const response = await fetch(backendURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        messages: [{ role: "user", content: message }]
-      })
-    });
-
-    const data = await response.json();
-    addMessage(data.response, "bot");
-
-  } catch (error) {
-    addMessage("Error al conectar", "bot");
-  }
-}
-
-sendBtn.addEventListener("click", sendMessage);
-userInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
-</script>
 
 </body>
 </html>
