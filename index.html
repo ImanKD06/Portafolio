@@ -278,16 +278,18 @@ section {
 @media (max-width: 760px){
     .community-top{ grid-template-columns: 1fr; gap: 28px; }
 }
+
+/* GALERÍA DE FOTOS: una grande arriba, dos abajo */
 .project-gallery{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
     margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 .project-gallery a{ display: block; }
 .project-gallery img{
     width: 100%;
-    height: 340px;
+    display: block;
     object-fit: cover;
     border: 1px solid var(--line);
     border-radius: 4px;
@@ -298,9 +300,19 @@ section {
     transform: translateY(-4px);
     border-color: var(--ink);
 }
-@media (max-width: 760px){
-    .project-gallery{ grid-template-columns: 1fr; }
+.gallery-main img{ height: 420px; }
+.gallery-bottom{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
 }
+.gallery-bottom img{ height: 280px; }
+@media (max-width: 760px){
+    .gallery-main img{ height: 280px; }
+    .gallery-bottom{ grid-template-columns: 1fr; }
+    .gallery-bottom img{ height: 240px; }
+}
+
 .tech-detail-grid {
     display: grid;
     grid-template-columns: 1.1fr 1px 0.9fr;
@@ -439,6 +451,7 @@ section {
             <div class="eyebrow">Proyecto</div>
             <h2>ContextIA</h2>
             <p>Plataforma web de análisis y consulta inteligente de documentos mediante inteligencia artificial, embeddings y búsqueda vectorial (RAG). El usuario sube uno o varios documentos y después puede hacer preguntas, comparar contenidos o pedir un análisis específico, sin tener que leerlos manualmente. No está limitada a un tipo de documento: funciona con documentación administrativa, normativas, becas, contratos, informes, documentación académica y otros textos, adaptando el análisis a lo que se le solicite.</p>
+            <a href="contextiafrontend.vercel.app" class="btn" target="_blank" style="margin-top:18px;">Ver proyecto</a>
         </div>
 
         <div class="tech-detail-grid">
@@ -477,10 +490,15 @@ section {
         </div>
 
         <div class="project-gallery">
-           <a href="img/Designer(16).png" target="_blank"><img src="img/Designer (16).png" alt="ContextIA - captura 1"></a>
-            <a href="img/contextia.png" target="_blank"><img src="img/contextia.png" alt="ContextIA - captura 2"></a>
-            <a href="img/contextia-2.png" target="_blank"><img src="img/contextia-2.png" alt="ContextIA - captura 3"></a>
-            <a href="img/contextia-4.jpg" target="_blank"><img src="img/contextia-4.jpg" alt="ContextIA - captura 4"></a>
+            <div class="gallery-main">
+                <a href="img/Designer (16).png" target="_blank">
+                    <img src="img/Designer (16).png" alt="ContextIA - arquitectura del proyecto">
+                </a>
+            </div>
+            <div class="gallery-bottom">
+                <a href="img/contextia.png" target="_blank"><img src="img/contextia.png" alt="ContextIA - captura 2"></a>
+                <a href="img/contextia-2.png" target="_blank"><img src="img/contextia-2.png" alt="ContextIA - captura 3"></a>
+            </div>
         </div>
 
         <div style="height:1px; background:var(--line); margin: 60px 0;"></div>
@@ -488,7 +506,7 @@ section {
         <!-- COMMUNITY MANAGER -->
         <div id="community" class="tech-detail-header community-top">
             <a class="arq-link" href="img/Designer.png" target="_blank" title="Ver la imagen completa">
-                <img class="arq-img" src="img/Designer.jpeg" alt="Diagrama de la arquitectura del proyecto Community Manager">
+                <img class="arq-img" src="img/Designer.png" alt="Diagrama de la arquitectura del proyecto Community Manager">
             </a>
             <div class="community-info">
                 <div class="eyebrow">Proyecto</div>
@@ -538,7 +556,6 @@ section {
             <div class="eyebrow">Proyecto</div>
             <h2>Planify</h2>
             <p>Aplicación web diseñada para gestionar turnos y horarios de empleados en pequeñas y medianas empresas, centralizando la planificación y mejorando la comunicación interna.</p>
-            <a href="https://planify-4-y5wh.onrender.com" class="btn" target="_blank" style="margin-top:14px;">Ver proyecto</a>
         </div>
         <div class="challenges" style="max-width: 640px; margin-bottom: 60px;">
             <ul>
@@ -557,7 +574,6 @@ section {
             <div class="eyebrow">Proyecto</div>
             <h2>Dumya</h2>
             <p>Proyecto web dinámico desarrollado con <strong>PHP, MySQL y HTML/CSS</strong>. Fue mi primer proyecto backend real y representó un gran salto en mi aprendizaje.</p>
-            <a href="https://dumya.infinityfree.me/?i=1" class="btn" target="_blank" style="margin-top:14px;">Ver proyecto</a>
         </div>
         <div class="challenges" style="max-width: 640px;">
             <ul>
