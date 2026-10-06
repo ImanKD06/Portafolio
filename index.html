@@ -306,18 +306,14 @@ section {
     padding: 10px;
 }
 .gallery-bottom{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 16px;
-    align-items: start;
 }
 .gallery-bottom img{
     height: auto;
     object-fit: contain;
     padding: 10px;
-}
-@media (max-width: 760px){
-    .gallery-bottom{ grid-template-columns: 1fr; }
 }
 
 .tech-detail-grid {
