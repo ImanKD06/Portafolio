@@ -309,11 +309,15 @@ section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+    align-items: start;
 }
-.gallery-bottom img{ height: 280px; }
+.gallery-bottom img{
+    height: auto;
+    object-fit: contain;
+    padding: 10px;
+}
 @media (max-width: 760px){
     .gallery-bottom{ grid-template-columns: 1fr; }
-    .gallery-bottom img{ height: 240px; }
 }
 
 .tech-detail-grid {
@@ -454,6 +458,7 @@ section {
             <div class="eyebrow">Proyecto</div>
             <h2>ContextIA</h2>
             <p>Plataforma web de análisis y consulta inteligente de documentos mediante inteligencia artificial, embeddings y búsqueda vectorial (RAG). El usuario sube uno o varios documentos y después puede hacer preguntas, comparar contenidos o pedir un análisis específico, sin tener que leerlos manualmente. No está limitada a un tipo de documento: funciona con documentación administrativa, normativas, becas, contratos, informes, documentación académica y otros textos, adaptando el análisis a lo que se le solicite.</p>
+            <a href="https://contextiafrontend.vercel.app" class="btn" target="_blank" style="margin-top:18px;">Ver proyecto</a>
         </div>
 
         <div class="tech-detail-grid">
