@@ -6,7 +6,7 @@
 <title>Portafolio · Desarrollo de Aplicaciones Web</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root{
   --bg: #ffffff;
@@ -14,6 +14,10 @@
   --ink-soft: #6b6b6b;
   --line: #dcdcdc;
   --panel: #f4f4f4;
+  --shadow-sm: 0 2px 10px rgba(10,10,10,0.05);
+  --shadow-md: 0 16px 36px rgba(10,10,10,0.10);
+  --shadow-lg: 0 28px 64px rgba(10,10,10,0.16);
+  --ease: cubic-bezier(.22,1,.36,1);
 }
 
 *{ box-sizing: border-box; }
@@ -25,6 +29,7 @@ body {
     background-color: var(--bg);
     color: var(--ink);
     font-weight: 400;
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -36,19 +41,32 @@ h1, h2, h3 {
 
 p { color: var(--ink-soft); line-height: 1.65; }
 
+.mono{
+    font-family: 'JetBrains Mono', monospace;
+}
+
 /* NAVBAR */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #ffffff;
-    padding: 20px 0;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 22px 0;
     z-index: 1000;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid transparent;
+    transition: padding 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+nav.scrolled{
+    padding: 14px 0;
+    border-color: var(--line);
+    box-shadow: var(--shadow-sm);
 }
 nav ul {
     list-style: none;
     display: flex;
+    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     gap: 14px 42px;
@@ -62,6 +80,7 @@ nav ul li a {
     font-weight: 500;
     position: relative;
     padding-bottom: 4px;
+    transition: color 0.25s ease;
 }
 nav ul li a::after{
     content:"";
@@ -71,9 +90,20 @@ nav ul li a::after{
     background: var(--ink);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.25s ease;
+    transition: transform 0.3s var(--ease);
 }
 nav ul li a:hover::after{ transform: scaleX(1); }
+.nav-cv{
+    border:1px solid var(--ink);
+    padding:7px 18px;
+    border-radius:30px;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.nav-cv:hover{
+    background: var(--ink);
+    color: #fff !important;
+    transform: translateY(-2px);
+}
 
 /* SECCIONES */
 section {
@@ -98,13 +128,82 @@ section {
 .content {
     max-width: 920px;
     margin: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Animaciones de entrada */
+@keyframes fadeUp{
+    from{ opacity:0; transform: translateY(26px); }
+    to{ opacity:1; transform: translateY(0); }
+}
+.reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-delay-1{ transition-delay: .08s; }
+.reveal-delay-2{ transition-delay: .16s; }
+.reveal-delay-3{ transition-delay: .24s; }
+
+@media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    #inicio h1, #inicio .eyebrow-tag{ animation:none !important; opacity:1 !important; transform:none !important; }
 }
 
 /* HERO */
 #inicio {
     padding-top: 160px;
+    overflow: hidden;
 }
-#inicio .hero-text { text-align: left; max-width: 620px; }
+#inicio::before{
+    content:"";
+    position:absolute;
+    top:-160px; right:-160px;
+    width:460px; height:460px;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 35%, rgba(10,10,10,0.07), transparent 72%);
+    z-index:0;
+}
+#inicio::after{
+    content:"";
+    position:absolute;
+    bottom:-200px; left:-140px;
+    width:380px; height:380px;
+    border-radius:50%;
+    background: radial-gradient(circle at 60% 40%, rgba(10,10,10,0.05), transparent 70%);
+    z-index:0;
+}
+#inicio .content{ width:100%; }
+#inicio .hero-text {
+    text-align: left;
+    max-width: 680px;
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease) 0.1s forwards;
+}
+.eyebrow-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 26px;
+}
+.eyebrow-tag .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:#1fae5a;
+    box-shadow: 0 0 0 3px rgba(31,174,90,0.18);
+}
 #inicio h1 {
     font-size: 76px;
     line-height: 1.02;
@@ -116,13 +215,39 @@ section {
     font-weight: 800;
     color: var(--ink);
 }
+.scroll-cue{
+    position:absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    color: var(--ink-soft);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    z-index:1;
+}
+.scroll-cue span{
+    width:1px;
+    height:34px;
+    background: linear-gradient(var(--ink-soft), transparent);
+    animation: scrollLine 1.8s ease-in-out infinite;
+}
+@keyframes scrollLine{
+    0%{ transform: scaleY(0); transform-origin: top; opacity:0; }
+    40%{ transform: scaleY(1); transform-origin: top; opacity:1; }
+    60%{ transform: scaleY(1); transform-origin: bottom; opacity:1; }
+    100%{ transform: scaleY(0); transform-origin: bottom; opacity:0; }
+}
 
 /* PRESENTACIÓN (FOTO + QUIÉN SOY) */
 #presentacion {
     background: var(--panel);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    padding: 100px 24px;
+    padding: 110px 24px;
 }
 #presentacion .content{
     display: flex;
@@ -131,13 +256,29 @@ section {
     gap: 70px;
     flex-wrap: wrap;
 }
+.foto-wrap{
+    position: relative;
+}
+.foto-wrap::before{
+    content:"";
+    position:absolute;
+    top: 18px; left: 18px;
+    width: 100%; height: 100%;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    z-index: 0;
+}
 #presentacion .foto{
+    position: relative;
+    z-index: 1;
     width: 300px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center 10%;
     border-radius: 4px;
     border: 1px solid var(--line);
+    box-shadow: var(--shadow-lg);
+    display: block;
 }
 #presentacion .quien-soy{
     text-align: left;
@@ -193,37 +334,45 @@ section {
     justify-content: center;
     background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 24px;
-    transition: 0.25s ease;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
 }
 .tech-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px);
     border-color: var(--ink);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-md);
 }
 .tech-card img {
     max-width: 80px;
     max-height: 80px;
     width: 100%;
     object-fit: contain;
+    transition: transform 0.35s var(--ease);
+}
+.tech-card:hover img{
+    transform: scale(1.08);
 }
 
 /* BOTONES */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 13px 26px;
     background: #0a0a0a;
     color: #fff;
     text-decoration: none;
     border: 1.5px solid #0a0a0a;
     font-weight: 600;
     font-size: 14.5px;
-    transition: 0.25s ease;
+    border-radius: 999px;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s ease, color 0.3s ease;
 }
 .btn:hover {
     background: #fff;
     color: #0a0a0a;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }
 
 /* REDES */
@@ -235,25 +384,65 @@ section {
 }
 .social-links img {
     width: 32px;
-    transition: 0.25s ease;
+    transition: transform 0.3s var(--ease);
 }
 .social-links img:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px) scale(1.06);
 }
 
 /* PROYECTOS */
+.projects-list{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+.project-card-block{
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 48px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.project-card-block:hover{
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+.project-num{
+    position: absolute;
+    top: 6px;
+    right: 28px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 110px;
+    line-height: 1;
+    color: var(--panel);
+    z-index: 0;
+    user-select: none;
+}
 .tech-detail-header {
     border-bottom: 1px solid var(--line);
     padding-bottom: 24px;
     margin-bottom: 44px;
+    position: relative;
+    z-index: 1;
 }
 .tech-detail-header .eyebrow{
-    font-size: 14px;
+    display:inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
     color: var(--ink-soft);
-    margin-bottom: 6px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
 }
 .tech-detail-header h2{
-    font-size: 40px;
+    font-size: 38px;
     margin-bottom: 8px;
 }
 .tech-detail-header p{
@@ -272,12 +461,20 @@ section {
     height: auto;
     display: block;
     border: 1px solid var(--line);
-    border-radius: 4px;
+    border-radius: 10px;
     background: #fff;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.arq-link:hover .arq-img{
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
 }
 .community-info .eyebrow{ font-size: 14px; color: var(--ink-soft); margin-bottom: 6px; }
 @media (max-width: 760px){
     .community-top{ grid-template-columns: 1fr; gap: 28px; }
+    .project-card-block{ padding: 30px 22px; border-radius: 18px; }
+    .project-num{ font-size: 72px; top: -4px; right: 16px; }
 }
 
 /* GALERÍA DE FOTOS: una grande arriba, dos abajo */
@@ -286,6 +483,8 @@ section {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    z-index: 1;
 }
 .project-gallery a{ display: block; }
 .project-gallery img{
@@ -293,13 +492,14 @@ section {
     display: block;
     object-fit: cover;
     border: 1px solid var(--line);
-    border-radius: 4px;
+    border-radius: 10px;
     background: #fff;
-    transition: 0.25s ease;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .project-gallery img:hover{
-    transform: translateY(-4px);
-    border-color: var(--ink);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
 }
 .gallery-main img{
     height: auto;
@@ -322,6 +522,8 @@ section {
     grid-template-columns: 1.1fr 1px 0.9fr;
     gap: 48px;
     align-items: start;
+    position: relative;
+    z-index: 1;
 }
 .tech-detail-grid .divider {
     background: var(--line);
@@ -385,10 +587,11 @@ section {
 }
 
 @media (max-width: 640px){
-    #inicio h1{ font-size: 48px; }
+    #inicio h1{ font-size: 44px; }
     #presentacion{ padding: 80px 24px; }
     #presentacion .content{ gap: 50px; }
     #presentacion .foto{ width: 240px; }
+    .foto-wrap::before{ top: 12px; left: 12px; }
     #presentacion .quien-soy{ text-align: center; }
     #presentacion h2{ font-size: 36px; }
     #presentacion .acciones{ justify-content: center; }
@@ -398,28 +601,34 @@ section {
 
 <body>
 
-<nav>
+<nav id="navbar">
     <ul>
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#presentacion">Sobre mí</a></li>
         <li><a href="#tecnologias">Tecnologías</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="https://imankd06.github.io/Curriculum/" target="_blank" style="border:1px solid #0a0a0a; padding:6px 16px; border-radius:20px;">Ver CV</a></li>
+        <li><a href="https://imankd06.github.io/Curriculum/" target="_blank" class="nav-cv">Ver CV</a></li>
     </ul>
 </nav>
 
 <section id="inicio" class="beige">
-    <div class="hero-text">
-        <h1>Portafolio<strong>Desarrollo de Aplicaciones Web</strong></h1>
+    <div class="content">
+        <div class="hero-text">
+            <span class="eyebrow-tag"><span class="dot"></span>Disponible para proyectos</span>
+            <h1>Portafolio<strong>Desarrollo de Aplicaciones Web</strong></h1>
+        </div>
     </div>
+    <div class="scroll-cue"><span></span>SCROLL</div>
 </section>
 
 <!-- PRESENTACIÓN: FOTO Y QUIÉN SOY -->
 <section id="presentacion">
     <div class="content">
-        <img class="foto" src="img/iman.jpg" alt="Iman Kebour Dahmoun">
-        <div class="quien-soy">
+        <div class="foto-wrap reveal">
+            <img class="foto" src="img/iman.jpg" alt="Iman Kebour Dahmoun">
+        </div>
+        <div class="quien-soy reveal reveal-delay-1">
             <h2>Iman Kebour Dahmoun</h2>
             <p class="rol">Desarrolladora de aplicaciones web</p>
             <p>Estudio Desarrollo de Aplicaciones Web y me gusta construir aplicaciones completas, desde la interfaz hasta el servidor y la base de datos.</p>
@@ -433,168 +642,178 @@ section {
 </section>
 
 <section id="tecnologias" class="beige">
-    <h2>Tecnologías que domino</h2>
+    <h2 class="reveal">Tecnologías que domino</h2>
     <div class="tech-container">
-        <div class="tech-card"><img src="img/html.png" alt="HTML"></div>
-        <div class="tech-card"><img src="img/css.png" alt="CSS"></div>
-        <div class="tech-card"><img src="img/js.png" alt="JavaScript"></div>
-        <div class="tech-card"><img src="img/python.png" alt="Python"></div>
-        <div class="tech-card"><img src="img/php.png" alt="PHP"></div>
-        <div class="tech-card"><img src="img/mysql.png" alt="MySQL"></div>
-        <div class="tech-card"><img src="img/aws.jpg" alt="AWS"></div>
+        <div class="tech-card reveal"><img src="img/html.png" alt="HTML"></div>
+        <div class="tech-card reveal reveal-delay-1"><img src="img/css.png" alt="CSS"></div>
+        <div class="tech-card reveal reveal-delay-2"><img src="img/js.png" alt="JavaScript"></div>
+        <div class="tech-card reveal reveal-delay-3"><img src="img/python.png" alt="Python"></div>
+        <div class="tech-card reveal"><img src="img/php.png" alt="PHP"></div>
+        <div class="tech-card reveal reveal-delay-1"><img src="img/mysql.png" alt="MySQL"></div>
+        <div class="tech-card reveal reveal-delay-2"><img src="img/aws.jpg" alt="AWS"></div>
     </div>
 </section>
 
 <section id="proyectos" class="beige">
     <div class="content" style="max-width: 980px; text-align: left;">
-        <h2 style="text-align:center;">Proyectos</h2>
+        <h2 class="reveal" style="text-align:center;">Proyectos</h2>
         <div style="height:1px; background:var(--line); margin: 30px 0 50px;"></div>
 
-        <!-- CONTEXTIA -->
-        <div id="contextia" class="tech-detail-header">
-            <div class="eyebrow">Proyecto</div>
-            <h2>ContextIA</h2>
-            <p>Plataforma web de análisis y consulta inteligente de documentos mediante inteligencia artificial, embeddings y búsqueda vectorial (RAG). El usuario sube uno o varios documentos y después puede hacer preguntas, comparar contenidos o pedir un análisis específico, sin tener que leerlos manualmente. No está limitada a un tipo de documento: funciona con documentación administrativa, normativas, becas, contratos, informes, documentación académica y otros textos, adaptando el análisis a lo que se le solicite.</p>
-        </div>
+        <div class="projects-list">
 
-        <div class="tech-detail-grid">
-            <div class="stack-list">
-                <dl>
-                    <dt>Frontend</dt>
-                    <dd>React, TypeScript, Vite, Tailwind CSS, Recharts</dd>
+            <!-- CONTEXTIA -->
+            <div class="project-card-block reveal">
+                <span class="project-num">01</span>
+                <div id="contextia" class="tech-detail-header">
+                    <div class="eyebrow">Proyecto</div>
+                    <h2>ContextIA</h2>
+                    <p>Plataforma web de análisis y consulta inteligente de documentos mediante inteligencia artificial, embeddings y búsqueda vectorial (RAG). El usuario sube uno o varios documentos y después puede hacer preguntas, comparar contenidos o pedir un análisis específico, sin tener que leerlos manualmente. No está limitada a un tipo de documento: funciona con documentación administrativa, normativas, becas, contratos, informes, documentación académica y otros textos, adaptando el análisis a lo que se le solicite.</p>
+                </div>
 
-                    <dt>Backend</dt>
-                    <dd>Python, FastAPI, SQLAlchemy, Pydantic</dd>
+                <div class="tech-detail-grid">
+                    <div class="stack-list">
+                        <dl>
+                            <dt>Frontend</dt>
+                            <dd>React, TypeScript, Vite, Tailwind CSS, Recharts</dd>
 
-                    <dt>Base de datos</dt>
-                    <dd>PostgreSQL en Supabase, con pgvector para búsqueda por similitud</dd>
+                            <dt>Backend</dt>
+                            <dd>Python, FastAPI, SQLAlchemy, Pydantic</dd>
 
-                    <dt>Inteligencia Artificial</dt>
-                    <dd>Google Gemini para embeddings (768 dimensiones) y generación de respuestas, análisis y propuestas mediante RAG</dd>
+                            <dt>Base de datos</dt>
+                            <dd>PostgreSQL en Supabase, con pgvector para búsqueda por similitud</dd>
 
-                    <dt>Infraestructura</dt>
-                    <dd>Backend serverless con AWS Lambda y AWS SAM, desplegado mediante Docker · Frontend independiente del backend</dd>
-                </dl>
+                            <dt>Inteligencia Artificial</dt>
+                            <dd>Google Gemini para embeddings (768 dimensiones) y generación de respuestas, análisis y propuestas mediante RAG</dd>
+
+                            <dt>Infraestructura</dt>
+                            <dd>Backend serverless con AWS Lambda y AWS SAM, desplegado mediante Docker · Frontend independiente del backend</dd>
+                        </dl>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="challenges">
+                        <h3>Retos técnicos</h3>
+                        <ul>
+                            <li>División de documentos en fragmentos (chunks) con solapamiento para no perder contexto entre ellos.</li>
+                            <li>Generación y comparación de embeddings para encontrar los fragmentos más relevantes según similitud semántica, no solo por palabras exactas.</li>
+                            <li>Diseño de un flujo RAG completo: extracción, chunking, embeddings, búsqueda vectorial y generación de respuesta con el LLM.</li>
+                            <li>Estructura de análisis adaptable según el tipo de documento, en lugar de una plantilla fija.</li>
+                            <li>Trazabilidad de las respuestas, mostrando de qué documento y fragmento procede cada una.</li>
+                            <li>Generación de gráficos e informes en PDF a partir del contenido recuperado.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-gallery">
+                    <div class="gallery-main">
+                        <a href="img/Designer (16).png" target="_blank">
+                            <img src="img/Designer (16).png" alt="ContextIA - arquitectura del proyecto">
+                        </a>
+                    </div>
+                    <div class="gallery-bottom">
+                        <a href="img/contextia.png" target="_blank"><img src="img/contextia.png" alt="ContextIA - captura 2"></a>
+                        <a href="img/contextia-2.png" target="_blank"><img src="img/contextia-2.png" alt="ContextIA - captura 3"></a>
+                    </div>
+                </div>
             </div>
 
-            <div class="divider"></div>
+            <!-- COMMUNITY MANAGER -->
+            <div class="project-card-block reveal">
+                <span class="project-num">02</span>
+                <div id="community" class="tech-detail-header community-top">
+                    <a class="arq-link" href="img/Designer.png" target="_blank" title="Ver la imagen completa">
+                        <img class="arq-img" src="img/Designer.png" alt="Diagrama de la arquitectura del proyecto Community Manager">
+                    </a>
+                    <div class="community-info">
+                        <div class="eyebrow">Proyecto</div>
+                        <h2>Community Manager</h2>
+                        <p>Plataforma full-stack para la gestión de comunidades de vecinos, con módulos de IA para clasificación de incidencias y generación de actas.</p>
+                    </div>
+                </div>
 
-            <div class="challenges">
-                <h3>Retos técnicos</h3>
-                <ul>
-                    <li>División de documentos en fragmentos (chunks) con solapamiento para no perder contexto entre ellos.</li>
-                    <li>Generación y comparación de embeddings para encontrar los fragmentos más relevantes según similitud semántica, no solo por palabras exactas.</li>
-                    <li>Diseño de un flujo RAG completo: extracción, chunking, embeddings, búsqueda vectorial y generación de respuesta con el LLM.</li>
-                    <li>Estructura de análisis adaptable según el tipo de documento, en lugar de una plantilla fija.</li>
-                    <li>Trazabilidad de las respuestas, mostrando de qué documento y fragmento procede cada una.</li>
-                    <li>Generación de gráficos e informes en PDF a partir del contenido recuperado.</li>
-                </ul>
-            </div>
-        </div>
+                <div class="tech-detail-grid">
+                    <div class="stack-list">
+                        <dl>
+                            <dt>Frontend</dt>
+                            <dd>React, Vite, JavaScript, React Router</dd>
 
-        <div class="project-gallery">
-            <div class="gallery-main">
-                <a href="img/Designer (16).png" target="_blank">
-                    <img src="img/Designer (16).png" alt="ContextIA - arquitectura del proyecto">
-                </a>
-            </div>
-            <div class="gallery-bottom">
-                <a href="img/contextia.png" target="_blank"><img src="img/contextia.png" alt="ContextIA - captura 2"></a>
-                <a href="img/contextia-2.png" target="_blank"><img src="img/contextia-2.png" alt="ContextIA - captura 3"></a>
-            </div>
-        </div>
+                            <dt>Backend</dt>
+                            <dd>Python, FastAPI, SQLAlchemy, Mangum <strong>(adaptador serverless)</strong></dd>
 
-        <div style="height:1px; background:var(--line); margin: 60px 0;"></div>
+                            <dt>Base de datos</dt>
+                            <dd>MySQL, alojada en Aiven</dd>
 
-        <!-- COMMUNITY MANAGER -->
-        <div id="community" class="tech-detail-header community-top">
-            <a class="arq-link" href="img/Designer.png" target="_blank" title="Ver la imagen completa">
-                <img class="arq-img" src="img/Designer.png" alt="Diagrama de la arquitectura del proyecto Community Manager">
-            </a>
-            <div class="community-info">
-                <div class="eyebrow">Proyecto</div>
-                <h2>Community Manager</h2>
-                <p>Plataforma full-stack para la gestión de comunidades de vecinos, con módulos de IA para clasificación de incidencias y generación de actas.</p>
-            </div>
-        </div>
+                            <dt>Inteligencia Artificial</dt>
+                            <dd>Modelo generativo integrado para la generación automática de actas y la clasificación / priorización de incidencias</dd>
 
-        <div class="tech-detail-grid">
-            <div class="stack-list">
-                <dl>
-                    <dt>Frontend</dt>
-                    <dd>React, Vite, JavaScript, React Router</dd>
+                            <dt>Infraestructura</dt>
+                            <dd>Backend serverless con AWS Lambda y AWS SAM · Frontend desplegado en Vercel</dd>
+                        </dl>
+                    </div>
 
-                    <dt>Backend</dt>
-                    <dd>Python, FastAPI, SQLAlchemy, Mangum <strong>(adaptador serverless)</strong></dd>
+                    <div class="divider"></div>
 
-                    <dt>Base de datos</dt>
-                    <dd>MySQL, alojada en Aiven</dd>
-
-                    <dt>Inteligencia Artificial</dt>
-                    <dd>Modelo generativo integrado para la generación automática de actas y la clasificación / priorización de incidencias</dd>
-
-                    <dt>Infraestructura</dt>
-                    <dd>Backend serverless con AWS Lambda y AWS SAM · Frontend desplegado en Vercel</dd>
-                </dl>
+                    <div class="challenges">
+                        <h3>Retos técnicos</h3>
+                        <ul>
+                            <li>Comunicación frontend–backend y configuración de CORS en un entorno distribuido.</li>
+                            <li>Diseño de rutas de FastAPI adaptadas a ejecución sobre AWS Lambda.</li>
+                            <li>Gestión de cold starts en la función Lambda.</li>
+                            <li>Conexión estable con una base de datos externa (Aiven) desde un entorno serverless.</li>
+                            <li>Configuración completa de la arquitectura serverless con AWS SAM, de local a producción.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="divider"></div>
-
-            <div class="challenges">
-                <h3>Retos técnicos</h3>
-                <ul>
-                    <li>Comunicación frontend–backend y configuración de CORS en un entorno distribuido.</li>
-                    <li>Diseño de rutas de FastAPI adaptadas a ejecución sobre AWS Lambda.</li>
-                    <li>Gestión de cold starts en la función Lambda.</li>
-                    <li>Conexión estable con una base de datos externa (Aiven) desde un entorno serverless.</li>
-                    <li>Configuración completa de la arquitectura serverless con AWS SAM, de local a producción.</li>
-                </ul>
+            <!-- PLANIFY -->
+            <div class="project-card-block reveal">
+                <span class="project-num">03</span>
+                <div class="tech-detail-header" style="border-bottom:none; margin-bottom: 20px;">
+                    <div class="eyebrow">Proyecto</div>
+                    <h2>Planify</h2>
+                    <p>Aplicación web diseñada para gestionar turnos y horarios de empleados en pequeñas y medianas empresas, centralizando la planificación y mejorando la comunicación interna.</p>
+                </div>
+                <div class="challenges" style="max-width: 640px;">
+                    <ul>
+                        <li>Gestión de empleados y turnos.</li>
+                        <li>Asignación de horarios.</li>
+                        <li>Solicitudes de cambio o días libres.</li>
+                        <li>Roles diferenciados (administrador y empleado).</li>
+                        <li>Calendario personal para cada usuario.</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div style="height:1px; background:var(--line); margin: 60px 0;"></div>
+            <!-- DUMYA -->
+            <div class="project-card-block reveal">
+                <span class="project-num">04</span>
+                <div class="tech-detail-header" style="border-bottom:none; margin-bottom: 20px;">
+                    <div class="eyebrow">Proyecto</div>
+                    <h2>Dumya</h2>
+                    <p>Proyecto web dinámico desarrollado con <strong>PHP, MySQL y HTML/CSS</strong>. Fue mi primer proyecto backend real y representó un gran salto en mi aprendizaje.</p>
+                </div>
+                <div class="challenges" style="max-width: 640px;">
+                    <ul>
+                        <li>Sistema completo de gestión de usuarios.</li>
+                        <li>Base de datos funcional.</li>
+                        <li>Inserción, borrado y edición de datos.</li>
+                        <li>Interfaz intuitiva y totalmente operativa.</li>
+                    </ul>
+                </div>
+            </div>
 
-        <!-- PLANIFY -->
-        <div class="tech-detail-header" style="border-bottom:none; margin-bottom: 20px;">
-            <div class="eyebrow">Proyecto</div>
-            <h2>Planify</h2>
-            <p>Aplicación web diseñada para gestionar turnos y horarios de empleados en pequeñas y medianas empresas, centralizando la planificación y mejorando la comunicación interna.</p>
-        </div>
-        <div class="challenges" style="max-width: 640px; margin-bottom: 60px;">
-            <ul>
-                <li>Gestión de empleados y turnos.</li>
-                <li>Asignación de horarios.</li>
-                <li>Solicitudes de cambio o días libres.</li>
-                <li>Roles diferenciados (administrador y empleado).</li>
-                <li>Calendario personal para cada usuario.</li>
-            </ul>
-        </div>
-
-        <div style="height:1px; background:var(--line); margin-bottom: 60px;"></div>
-
-        <!-- DUMYA -->
-        <div class="tech-detail-header" style="border-bottom:none; margin-bottom: 20px;">
-            <div class="eyebrow">Proyecto</div>
-            <h2>Dumya</h2>
-            <p>Proyecto web dinámico desarrollado con <strong>PHP, MySQL y HTML/CSS</strong>. Fue mi primer proyecto backend real y representó un gran salto en mi aprendizaje.</p>
-        </div>
-        <div class="challenges" style="max-width: 640px;">
-            <ul>
-                <li>Sistema completo de gestión de usuarios.</li>
-                <li>Base de datos funcional.</li>
-                <li>Inserción, borrado y edición de datos.</li>
-                <li>Interfaz intuitiva y totalmente operativa.</li>
-            </ul>
         </div>
     </div>
 </section>
 
 <section id="contacto" class="beige">
-    <h2>Contacto</h2>
-    <h3>Puedes escribirme a:</h3>
-    <a href="mailto:kebouriman6@gmail.com" class="btn">Enviar email</a>
+    <h2 class="reveal">Contacto</h2>
+    <h3 class="reveal">Puedes escribirme a:</h3>
+    <a href="mailto:kebouriman6@gmail.com" class="btn reveal">Enviar email</a>
 
-    <div class="social-links">
+    <div class="social-links reveal">
         <a href="https://github.com/ImanKD06" target="_blank">
             <img src="img/github.png" alt="GitHub">
         </a>
@@ -603,6 +822,30 @@ section {
         </a>
     </div>
 </section>
+
+<script>
+// Nav con sombra al hacer scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// Revelado progresivo al hacer scroll
+const revealEls = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting){
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => io.observe(el));
+} else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+}
+</script>
 
 </body>
 </html>
